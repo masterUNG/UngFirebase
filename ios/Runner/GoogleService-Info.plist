@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>14235362170-647elja36kno6mom4o78pcebtb090sfq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.14235362170-647elja36kno6mom4o78pcebtb090sfq</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>14235362170-eus1olqdqnppeout063l3ficpblcjunb.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC6A1WRspmkwsf2asiW01nLK9BoxRlymHg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>14235362170</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>th.in.androidthai.ungfirebase</string>
+	<key>PROJECT_ID</key>
+	<string>ungpicture</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ungpicture.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:14235362170:ios:b1ac6ca73bbd4674</string>
+	<key>DATABASE_URL</key>
+	<string>https://ungpicture.firebaseio.com</string>
+</dict>
+</plist>
