@@ -1,5 +1,7 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ungfirebase/screens/my_service.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -10,7 +12,7 @@ class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
   String nameString, emailString, passwordString;
 
-  Widget uploadButton() {
+  Widget uploadButton(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.cloud_upload),
       onPressed: () {
@@ -18,23 +20,50 @@ class _RegisterState extends State<Register> {
           formKey.currentState.save();
           print(
               'Name = $nameString, Email = $emailString, Pass = $passwordString');
-          uploadValueToFirebase();
+          uploadValueToFirebase(context);
         }
       },
     );
   }
 
-  void uploadValueToFirebase() async {
+  void uploadValueToFirebase(BuildContext context) async {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     await firebaseAuth
         .createUserWithEmailAndPassword(
             email: emailString, password: passwordString)
         .then((objValue) {
       print('Success Register');
+
+      String uidString = objValue.uid.toString();
+      print('uidString ==> $uidString');
+
+      updateDatabase(uidString, context);
     }).catchError((error) {
       String errorString = error.message;
       print('Error ===> $errorString');
       showAlertDialog('Cannot Registed', errorString);
+    });
+  }
+
+  void updateDatabase(String uidString, BuildContext context) async {
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
+
+    Map<String, String> map = Map();
+    map['Email'] = emailString;
+    map['Name'] = nameString;
+    map['Uid'] = uidString;
+
+    await firebaseDatabase
+        .reference()
+        .child('User')
+        .child(uidString)
+        .set(map)
+        .then((objValue) {
+      // Move To MyService
+      var serviceRoute =
+          MaterialPageRoute(builder: (BuildContext context) => MyService());
+      Navigator.of(context)
+          .pushAndRemoveUntil(serviceRoute, (Route<dynamic> route) => false);
     });
   }
 
@@ -48,7 +77,9 @@ class _RegisterState extends State<Register> {
           actions: <Widget>[
             FlatButton(
               child: Text('OK'),
-              onPressed: () {Navigator.of(context).pop();},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             )
           ],
         );
@@ -127,7 +158,7 @@ class _RegisterState extends State<Register> {
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text('Register'),
-        actions: <Widget>[uploadButton()],
+        actions: <Widget>[uploadButton(context)],
       ),
       body: Form(
         key: formKey,
